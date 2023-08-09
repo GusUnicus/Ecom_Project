@@ -12,24 +12,24 @@ SCOPES = ['https://www.googleapis.com/auth/gmail.compose']
 def get_gmail_service():
     creds = None
     if os.path.exists('token.json'):
-        creds = Credentials.from_authorized_user_file('token.json', SCOPES)
+        creds = Credentials.from_authorized_user_file('Keys/token.json', SCOPES)
 
     if not creds or not creds.valid:
         if creds and creds.expired and creds.refresh_token:
             creds.refresh(Request())
         else:
             flow = InstalledAppFlow.from_client_secrets_file(
-                'mail_token.json', SCOPES)
+                'Keys/mail_token.json', SCOPES)
             creds = flow.run_local_server(port=0)
    
-        with open('token.json', 'w') as token:
+        with open('Keys/token.json', 'w') as token:
             token.write(creds.to_json())
 
     return build('gmail', 'v1', credentials=creds)
 
 def list_drafts():
     gmail_service = get_gmail_service()
-    results = gmail_service.users().drafts().list(userId=os.environ['SITE_MAIL']).execute()
+    results = gmail_service.users().drafts().list(userId='ecommercesecured@gmail.com').execute()
     drafts = results.get('drafts', [])
     if not drafts:
         print('No drafts found.')
@@ -48,11 +48,11 @@ def create_draft():
     message = f"From: {sender_email}\nTo: {recipient_email}\nSubject: {subject}\n\n{body}"
     raw_message = base64.urlsafe_b64encode(message.encode()).decode()
     draft = {'message': {'raw': raw_message}}
-    draft = gmail_service.users().drafts().create(userId=os.environ['SITE_MAIL'], body=draft).execute()
+    draft = gmail_service.users().drafts().create(userId='ecommercesecured@gmail.com', body=draft).execute()
     print('Draft created:', draft['id'])
 
 def send_email(recipient_email, subject, body):
-    sender_email = os.environ['SITE_MAIL']
+    sender_email = 'ecommercesecured@gmail.com'
     gmail_service = get_gmail_service()
     message = f"From: {sender_email}\nTo: {recipient_email}\nSubject: {subject}\n\n{body}"
     raw_message = base64.urlsafe_b64encode(message.encode()).decode()
