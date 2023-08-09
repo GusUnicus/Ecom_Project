@@ -10,18 +10,6 @@ import build_mail
 from datetime import datetime, timedelta
 import otp
 
-import os, secrets
-from flask import Flask, render_template, request, jsonify, redirect, url_for, session, flash,Response
-from firebase import Firebase
-import stripe
-from flask_bcrypt import Bcrypt
-from user import User
-from cart import Cart
-from order import Order
-import build_mail
-from datetime import datetime, timedelta
-import otp
-
 
 app = Flask(__name__)
 app.secret_key = os.environ['APP_SECRET_KEY']
