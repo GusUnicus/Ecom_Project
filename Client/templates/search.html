@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+    
+    {% if no_results %}
+        <p>No results found.</p>
+    {% else %}
+    <h2 class="mb-4">Search Results for "{{ search_query }}"</h2>
+    
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for product_key, product in search_results %}
+        <div class="col">
+            <div class="card h-100 d-flex flex-column">
+                <!-- Product Image -->
+                <img src="{{ product.image_url }}" class="card-img-top" alt="{{ product.title }} image" style="width: 100%;height: 500px;object-fit: cover;display: block;">
+
+                <div class="card-body" style="height: 250px;">
+                    <!-- Product Title -->
+                    <h5 class="card-title">
+                        <a href="{{ url_for('process_view', product_key=product_key) }}" class="text-dark text-decoration-none fs-3">
+                            {{ product.title }}
+                        </a>
+                    </h5>
+
+                    <!-- Product Price -->
+                    <h6 class="card-subtitle mb-2 ">${{ product.price }}</h6>
+                    
+                    <!-- Product Description -->
+                    <p class="card-text">{{ product.description }}</p>
+                </div>
+
+                <!-- More info directs to the product page. -->
+                <div class="card-footer">
+                    <a href="{{ url_for('process_view', product_key=product_key) }}" class="btn btn-success">More Info</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>
+{% endblock content %}

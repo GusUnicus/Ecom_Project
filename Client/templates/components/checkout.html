@@ -1,0 +1,29 @@
+
+{% block script %}
+<script src="{{ url_for('static',filename='js/payment.js') }}"></script>
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+//`function sendCart(){
+//`    fetch('/send_current_path', {
+//`        method: 'POST',
+//`        headers: {
+//`            'Content-Type': 'application/json',
+//`        },
+//`        body: JSON.stringify({ cart: document.getElementById }),
+//`    })
+//`    //.then(response => {
+//`    //    if (response.ok) {
+//`    //        console.log('Current path sent successfully to the backend.');
+//`    //    } else {
+//`    //        console.error('Failed to send current path to the backend.');
+//`    //    }
+//`    //})
+//`    .catch(error => console.error('Error:', error));
+//`}
+//`document.getElementById('checkout-btn').addEventListener('click',sendCart);
+</script>
+{% endblock script %}
+{% block content %}
+<a href="{{url_for('pay')}}" id="submitBtn" class="btn btn-success is-primary mt-mb-0 pt-pb-0 text-decoration-none checkout-btn">Checkout</a>
+<!--button class="button is-primary" id="submitBtn">Checkout</button>-->
+{% endblock content %}

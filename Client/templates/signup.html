@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+{% block script %}
+<script defer>
+  const emailInput = document.getElementById('emailID');
+  const emailError = document.getElementById('emailError');
+  const pwdInput = document.getElementById('passwordID');
+  const progressBar = document.getElementById('password-strength');
+  
+  emailInput.addEventListener('input', () => {
+    const email = emailInput.value.trim();
+    if (validateEmail(email)) {
+      emailError.textContent = '';
+    } else {
+      emailError.textContent = 'Please enter a valid email address.';
+    }
+  });
+  
+  function validateEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  }
+
+  pwdInput.addEventListener('input', () => {
+    var password = pwdInput.value.trim();
+    var strength = calculatePasswordStrength(password);
+    updateProgressBar(strength);
+  });
+  
+  function calculatePasswordStrength(password) {
+    var length = password.length;
+    console.log(Math.min(length / 10 * 100, 100));
+    return Math.min(length / 10 * 100, 100);
+  }
+
+  function updateProgressBar(strength) {
+    console.log(progressBar);
+    console.log(progressBar.css);
+    $('#password-strength').css('width', strength + '%').attr('aria-valuenow', strength);
+  }
+
+
+</script>
+{% endblock script %}
+{% block content %}
+<!-- Section: Design Block -->
+<section class="vh-auto gradient-custom">
+	<div class="container py-5 h-100">
+	  <div class="row d-flex justify-content-center align-items-center h-100">
+		<div class="col-12 col-md-8 col-lg-6 col-xl-5">
+		  <div class="card bg-dark text-white" style="border-radius: 1rem;">
+			<div class="card-body p-5 text-center">
+  
+			  <form method="post">
+          <!-- 2 column grid layout with text inputs for the first and last names -->
+          <div class="row">
+            <div class="col-md-6 mb-4">
+              <div class="form-outline">
+                <label class="form-label" for="fName">First name</label>
+                <input type="text" id="fName" name="fName" class="form-control" required/>
+                
+              </div>
+            </div>
+            <div class="col-md-6 mb-4">
+              <div class="form-outline">
+                <label class="form-label" for="lName">Last name</label>
+                <input type="text" id="lName" name="lName" class="form-control" />
+                
+              </div>
+            </div>
+          </div>
+
+          <!-- Username input -->
+          <div class="form-outline mb-4">
+            <label class="form-label" for="usernameID">Username</label>
+            <input type="text" id="usernameID" name="usernameID" class="form-control" required />
+            
+          </div>
+
+          <!-- Email input -->
+          <div class="form-outline mb-4">
+            <label class="form-label" for="emailID">Email address</label>
+            <input type="email" id="emailID" name="emailID" class="form-control" required />
+            <div id="emailError" class="text-danger"></div>
+          </div>
+
+          <!-- Password input -->
+          <div class="form-outline mb-4">
+            <label class="form-label" for="passwordID">Password</label>
+            <input type="password" id="passwordID" name="passwordID" class="form-control" required/>
+        
+          </div>
+          <!-- Password strength -->
+          <div class="form-outline mb-4">
+            <label class="form-label" for="passwordID">Password Strength:</label>
+            <div class="progress">
+              <div class="progress-bar" id="password-strength" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>
+            </div>
+            <p class="password-text"></p>
+        
+          </div>
+          
+
+          <!-- Checkbox -->
+          <div class="form-check d-flex justify-content-center mb-4">
+            
+            <input class="form-check-input me-2" type="checkbox" value="" id="subscription" checked />
+            <label class="form-check-label" for="subscription">
+              Subscribe to our newsletter
+            </label>
+            
+          </div>
+
+          <!-- Submit button -->
+          <button type="submit" class="btn btn-primary btn-block mb-4">
+            Sign up
+          </button>
+
+          <!-- Register buttons -->
+          <div class="text-center">
+            <p>or sign up with:</p>
+            <button type="button" class="btn btn-link btn-floating mx-1">
+              <i class="fab fa-google"></i>
+            </button>
+            </button>
+          </div>
+        </form>
+        <div>
+          <p class="mb-0">Already registered? <a href="{{url_for("login")}}" class="text-white-50 fw-bold">Login</a>
+          </p>
+        </div>
+  
+			</div>
+		  </div>
+		</div>
+	  </div>
+	</div>
+  </section>
+{% endblock content %}

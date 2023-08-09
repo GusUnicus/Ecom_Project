@@ -1,0 +1,52 @@
+
+
+<form action="{{ url_for('search') }}" method="post">
+    <input type="text" name="search_query" placeholder="Search products">
+    <button type="submit">Search</button>
+</form>
+<ul>
+    {% for key,item,count in items %}
+    <li value="{{count}}" data-tokens="{{item}}"><a href="{{ url_for('process_view', product_key=key) }}">{{item}}</a></li>
+    {% endfor %}
+</ul>
+
+  <!--
+                                <select name="" class="form-control selectpicker" aria-label="Search">
+                                    <option selected>Search...</option>
+                                    
+                                    {% for key,item,count in items %}
+                                    <option value="{{count}}" data-tokens="{{item}}"><a href="{{ url_for('process_view', product_key=key) }}">{{item}}</a></option>
+                                    {% endfor %}
+                                </select>
+
+                                <span class="input-group-text border-0" id="search-addon">
+                                  <i class="fas fa-search"></i>
+                                </span>
+                                
+                                <input type="search" id="search-input" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-dropdown" />
+                                <button class="btn btn-white " type="button" id="search-dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fas fa-search"></i>
+                                </button>
+
+                                <form class="form-inline">
+                                    <div class="dropdown">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" placeholder="Search" id="search-input" />
+                                            <div class="input-group-append">
+                                              <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <i class="fas fa-search"></i>
+                                              </button>
+                                            </div>
+                                          </div>
+                                          <select class="form-control" id="select-options">
+                                          
+                                            <option value="" selected disabled>Search...</option>
+                                            <option value="option1">Option 1</option>
+                                            <option value="option2">Option 2</option>
+                                            <option value="option3">Option 3</option>
+                                           
+                                          </select>
+                                    </div>
+                                  </form>
+                                -->
+                                  

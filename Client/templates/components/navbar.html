@@ -1,0 +1,21 @@
+{% block navbar %}
+                <div class="navbar align-self-center d-flex">
+                    
+
+                    <a class="nav-icon position-relative text-decoration-none" href="#" data-toggle="modal" data-target="#cart">
+                        <i class="fa fa-fw fa-cart-arrow-down text-dark mr-1"></i>
+                       
+                        
+                    </a>
+                    {% if session['logged_in'] %}
+                    <a class="nav-icon position-relative text-decoration-none" href="{{url_for('logout')}}">
+                        <i class="fa fa-sign-out" aria-hidden="true"></i>
+                    </a>
+                    {% else %}
+                    <a class="nav-icon position-relative text-decoration-none" href="{{url_for('login')}}">
+                        <i class="fa fa-sign-in" aria-hidden="true"></i>
+                    </a>
+                    {% endif %}
+                    
+                </div>
+{% endblock navbar %}
