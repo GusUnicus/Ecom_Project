@@ -15,3 +15,4 @@ Client/__*
 ./Client/token.json
 .Client/mail-token.json
 ./*/update_later.txt
+Client/Keys/*
