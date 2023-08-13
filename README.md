@@ -62,6 +62,6 @@ There will be several `os.environ['ENVIRONMENT_VARIABLE_NAME']` either replace t
 
 Then move to the directory where app.py is located and use `python app.py` to run the app. You'll be given an IP address that if you paste it in the browser you'll be able to interact with the website. The default IP address should be `127.0.0.1:5000`.
 
-
+Warning: You might have to click the checkout button twice after a short interval.
 
 *The qr codes generated will be removed using cron jobs/background processes.*
