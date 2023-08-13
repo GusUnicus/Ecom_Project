@@ -142,7 +142,7 @@
                         <a href="{{ url_for('process_view', product_key=product_key) }}">
                             <!-- Product Image from Firebase -->
                             {% if product_data and product_key in product_data %}
-                                <img src="{{ product_data[product_key]['image_url'] }}" class="card-img-top resized-image" alt="{{ product_data[product_key]['title'] }} image">
+                            <img src="{{ product_data[product_key]['image_url'] }}" class="card-img-top" alt="{{ product_data[product_key]['title'] }} image" style=" height: 300px; object-fit: cover;">
                             {% else %}
                                 <!-- Fallback image in case no image URL is found -->
                                 <img src="path/to/your/default/image.jpg" class="card-img-top" alt="Default Image">
