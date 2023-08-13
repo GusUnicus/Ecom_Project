@@ -103,11 +103,13 @@ var shoppingCart = (function() {
     return cartCopy;
   }
 
-  document.querySelector('.add-to-cart').addEventListener('click', function() {
-    var myModal = new bootstrap.Modal(document.getElementById('cartModal'), {});
-    myModal.show();
+// JS for modal pop to show item has been added to the cart.
+document.querySelector('.add-to-cart').addEventListener('click', function() {
+  var myModal = new bootstrap.Modal(document.getElementById('cartModal'), {});
+  myModal.show();
 });
 
+// JS for modal pop to show item has been added to the cart.
 document.addEventListener('DOMContentLoaded', function() {
   document.querySelectorAll('.add-to-cart').forEach(function(button) {
       button.addEventListener('click', function(event) {
@@ -117,6 +119,36 @@ document.addEventListener('DOMContentLoaded', function() {
       });
   });
 });
+
+// JS for sorting products in shop.html
+const productList = document.getElementById("product-list");
+const originalProducts = Array.from(productList.children);
+document.getElementById("sort-select").addEventListener("change", function() {
+
+  let products = Array.from(originalProducts);
+
+  if (this.value === "a_to_z") {
+    products.sort((a, b) => {
+        const titleA = a.querySelector(".h3").textContent.toLowerCase();
+        const titleB = b.querySelector(".h3").textContent.toLowerCase();
+        return titleA.localeCompare(titleB);
+    });
+  } else if (this.value === "featured") {
+    products = products.filter(product => {
+        const title = product.querySelector(".add-to-cart").getAttribute("data-name").toLowerCase();
+        return title.includes("gucci") || title.includes("lv") || title.includes("chanel");
+    });
+  }
+
+  // Clear the product list and append filtered/sorted elements back to the DOM
+  while (productList.firstChild) {
+      productList.removeChild(productList.firstChild);
+  }
+  
+  products.forEach(product => productList.appendChild(product));
+});
+
+
 
   return obj;
 })();
