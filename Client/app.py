@@ -10,7 +10,7 @@ from datetime import datetime, timedelta
 
 app = Flask(__name__)
 app.secret_key = os.environ['APP_SECRET_KEY']
-bcrypt = Bcrypt(app)
+bcrypt = Bcrypt(app) 
 app.config.update(
     SESSION_COOKIE_SECURE=True,
     SESSION_COOKIE_HTTPONLY=True,
@@ -37,7 +37,7 @@ def set_default_session_values():
     if 'logged_in' not in session:
         session['logged_in'] = False
 
-def sanitize(*inputs):
+def sanitize(*inputs): #Checking to see if inputs match any generic payloads
     with open('genericpayload.txt','r') as f:
         data = f.read()
     result=[]
@@ -73,6 +73,7 @@ def password_reset_url(email):
 
 @app.after_request
 def add_header(response):
+    # Security headers
     csp ="img-src 'self' data: 'unsafe-inline' *"
     response.headers['Content-Security-Policy'] = csp
     response.headers["Access-Control-Allow-Methods"] = "GET, POST"
@@ -84,7 +85,7 @@ def add_header(response):
    
     return response
 
-@app.route('/',methods=['GET','POST'])
+@app.route('/',methods=['GET','POST']) # First page to be served
 def main():
     set_default_session_values()
     if 'username' in session:
@@ -285,15 +286,11 @@ def reset():
     else:
         return "Invalid Request"
 
-@app.route('/pay',methods=['GET','POST'])
-def pay():
-    return render_template('components/checkout.html')
 
 @app.route('/config')
 def get_public_key():
     stripe_config = {"publicKey": STRIPE_KEYS['public_key']}
     return jsonify(stripe_config)
-
 
 
 @app.route('/create_checkout_session',methods=['GET','POST'])
