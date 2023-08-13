@@ -62,6 +62,14 @@ def check_password_strength(password):
         return "weak"
     return "strong"
     
+def password_reset_url(email):
+        reset_token = secrets.token_urlsafe(32)
+        expiry_time = datetime.now() + timedelta(hours=4)# Set expiry to 4 hours from now
+        expiry_time = expiry_time.timestamp()
+        USER.update_reset_token(reset_token=reset_token,expiry=expiry_time,email=email)
+        reset_link = request.url_root+'/reset_password/token='+reset_token+f'?email={email}'
+        return reset_link
+
 
 @app.after_request
 def add_header(response):
@@ -253,14 +261,6 @@ def password_reset():
     else:
         return render_template('passwordchange.html')
 
-def password_reset_url(email):
-        reset_token = secrets.token_urlsafe(32)
-        expiry_time = datetime.now() + timedelta(hours=4)# Set expiry to 4 hours from now
-        expiry_time = expiry_time.timestamp()
-        USER.update_reset_token(reset_token=reset_token,expiry=expiry_time,email=email)
-        reset_link = request.url_root+'/reset_password/token='+reset_token+f'?email={email}'
-        return reset_link
-
 @app.route('/reset_password/token=<token>', methods=['GET'])
 def reset_password(token):
     if request.method == 'GET':
@@ -329,9 +329,7 @@ def create_checkout_session():
     except Exception as e:
         print(" Stripe Error",e)
         return jsonify(error=str(e)),403
-        
-def forward(url):
-    return redirect(url)
+
 
 @app.route("/success")
 def success():
