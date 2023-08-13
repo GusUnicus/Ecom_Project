@@ -135,7 +135,7 @@ def search():
 def receive_cart():
     cart_data = request.get_json()
     session['cart'] = cart_data
-    return json.dumps({'success':True}), 200, {'ContentType':'application/json'} #redirect(url_for('create_checkout_session',cart=json.dumps(cart_data)))
+    return json.dumps({'success':True}), 200, {'ContentType':'application/json'} 
 
 @app.route('/process_view/<product_key>')
 def process_view(product_key):
@@ -156,6 +156,7 @@ def login():
                     session['username'] = acc[1]
                     session['userEmail'] = acc[4]
                     session['logged_in'] = True
+                    session['cart'] = None
                     return redirect(url_for('generate_qr',username=session['username']))
                 else:
                     flash("Invalid credentials. Please try again.")
@@ -324,7 +325,6 @@ def create_checkout_session():
         session_data = {
         'sessionId': checkout_session.id,
         }
-
         return jsonify(session_data)  
     except Exception as e:
         print(" Stripe Error",e)
