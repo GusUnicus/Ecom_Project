@@ -14,9 +14,9 @@ bcrypt = Bcrypt(app)
 app.config.update(
     SESSION_COOKIE_SECURE=True,
     SESSION_COOKIE_HTTPONLY=True,
-    SESSION_COOKIE_SAMESITE='Lax',
-    
+    SESSION_COOKIE_SAMESITE='Lax',   
 )
+
 connect_firebase = Firebase()
 products = connect_firebase.get_all_products()
 
