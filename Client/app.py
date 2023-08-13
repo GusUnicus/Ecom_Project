@@ -75,7 +75,7 @@ def add_header(response):
     }
     csp_header = '; '.join([f"{key} {value}" for key, value in csp.items()])
     csp ="img-src 'self' data: 'unsafe-inline' *"
-    response.headers['Content-Security-Policy'] = csp
+    response.headers['Content-Security-Policy'] = csp_header
     response.headers["Access-Control-Allow-Methods"] = "GET, POST"
     response.headers["Access-Control-Allow-Headers"] = "Content-Type, Authorization"
     response.headers['Access-Control-Allow-Origin'] = 'https://checkout.stripe.com/*'
@@ -353,7 +353,6 @@ def cancelled():
     return render_template("components/cancelled.html")
 
 if __name__ == '__main__':
-    # context = ssl.SSLContext(ssl.PROTOCOL_TLSv1_2)
-    # context.load_cert_chain(certfile='Keys/cert.pem', keyfile='Keys/key.pem')
-    # app.run(host='localhost', port=5000, ssl_context=context)
-    app.run(debug=True)
+    context = ssl.SSLContext(ssl.PROTOCOL_TLSv1_2)
+    context.load_cert_chain(certfile='Keys/cert.pem', keyfile='Keys/key.pem')
+    app.run(host='localhost', port=5000, ssl_context=context)
