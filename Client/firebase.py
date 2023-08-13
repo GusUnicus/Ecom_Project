@@ -6,7 +6,7 @@ class Firebase():
         self.initialize_firebase()
 
     def initialize_firebase(self):
-        cred = credentials.Certificate(r"./programming-1b4e1-firebase-adminsdk-bh2x1-09ef909109.json")
+        cred = credentials.Certificate(r"Keys/programming-1b4e1-10acc9203113.json")
         firebase_admin.initialize_app(cred, {
         'databaseURL': 'https://programming-1b4e1-default-rtdb.asia-southeast1.firebasedatabase.app'
                 })

@@ -31,14 +31,14 @@
             <div class="container">
                 <div class="row p-5">
                     <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
-                        <img class="img-fluid" src="./static/images/banner_img_01.jpg" alt="">
+                        <img class="img-fluid" src="./static/images/banner_img_01.png" alt="">
                     </div>
                     <div class="col-lg-6 mb-0 d-flex align-items-center">
                         <div class="text-align-left align-self-center">
-                            <h1 class="h1 text-success"><b>Secured </b> eCommerce</h1>
-                            <h3 class="h2"> Secured eCommerce Web App </h3>
+                            <h1 class="h1 text-success"><b>Command Injection Vulnerability </b> Protection</h1>
+                            <h3 class="h2">  Use of Flask, REGEX, and Input Sanitization </h3>
                             <p>
-                               This ecommerce web application is built to withstand command injections attacks from occuring.
+                                Powered by Flask and its robust Jinja templating system, our website is fortified against command injection attacks through stringent input sanitation, regex-based filtering, and proactive security escapes, ensuring a safe browsing experience for our users.
                             </p>
                         </div>
                     </div>
@@ -49,14 +49,14 @@
             <div class="container">
                 <div class="row p-5">
                     <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
-                        <img class="img-fluid" src="./static/images/banner_img_02.jpg" alt="">
+                        <img class="img-fluid" src="./static/images/banner_img_02.png" alt="">
                     </div>
                     <div class="col-lg-6 mb-0 d-flex align-items-center">
                         <div class="text-align-left">
-                            <h1 class="h1"> Implemented Firebase </h1>
-                            <h3 class="h2"> Added Security for Database </h3>
+                            <h1 class="h1"> SQL Injection Attack </h1>
+                            <h3 class="h2"> Added Security for Database from SQL Injection Attacks </h3>
                             <p>
-                                Used firebase for the product page information in order to have a stable security performance.
+                                Utilizing parameterized inputs for database queries, our website is meticulously safeguarded against SQL injection attacks, ensuring that your data remains secure and interactions remain trusted
                 
                             </p>
                         </div>
@@ -68,14 +68,14 @@
             <div class="container">
                 <div class="row p-5">
                     <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
-                        <img class="img-fluid" src="./static/images/banner_img_03.jpg" alt="">
+                        <img class="img-fluid" src="./static/images/banner_img_03.png" alt="">
                     </div>
                     <div class="col-lg-6 mb-0 d-flex align-items-center">
                         <div class="text-align-left">
-                            <h1 class="h1"> Implemented Login Authentication </h1>
+                            <h1 class="h1"> Authentication </h1>
                             <h3 class="h2"> Added Security for Login Authentication </h3>
                             <p>
-                                Used Javascript to ensure that the login authentication features will be well secured. 
+                                Leveraging advanced authentication mechanisms, our website cross-references entered passwords against the top 3-5 most common passwords, ensuring that users choose stronger, more secure credentials for enhanced account protection. 
                             </p>
                         </div>
                     </div>
@@ -136,113 +136,57 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-12 col-md-4 mb-4">
-                <div class="card h-100">
-                    
-                    <a href="{{ url_for('process_view', product_key='product1') }}">
-                        
-                        <img src="static/images/feature_prod_01.jpg" class="card-img-top" alt="...">
-                    </a>
-                    <div class="card-body">
-                        <ul class="list-unstyled d-flex justify-content-between">
-                            <li>
-                                <i class="text-warning fa fa-star"></i>
-                                <i class="text-warning fa fa-star"></i>
-                                <i class="text-warning fa fa-star"></i>
-                                <i class="text-muted fa fa-star"></i>
-                                <i class="text-muted fa fa-star"></i>
-                            </li>
-                            <li class="text-muted text-right">$240.00</li>
-                        </ul>
-                        <!-- <a href="{{ url_for('process_view', product_key='product1') }}" class="h2 text-decoration-none text-dark">Gucci Dress</a> -->
-                        <a href="{{ url_for('process_view', product_key='product1') }}" class="h2 text-decoration-none text-dark">
-                          {% if product_data and 'product1' in product_data %}
-                              {{ product_data['product1']['title'] }}
-                          {% else %}
-                              Product Title
-                          {% endif %}
+            {% for product_key in ['product1', 'product2', 'product3'] %}
+                <div class="col-12 col-md-4 mb-4">
+                    <div class="card h-100">
+                        <a href="{{ url_for('process_view', product_key=product_key) }}">
+                            <!-- Product Image from Firebase -->
+                            {% if product_data and product_key in product_data %}
+                                <img src="{{ product_data[product_key]['image_url'] }}" class="card-img-top resized-image" alt="{{ product_data[product_key]['title'] }} image">
+                            {% else %}
+                                <!-- Fallback image in case no image URL is found -->
+                                <img src="path/to/your/default/image.jpg" class="card-img-top" alt="Default Image">
+                            {% endif %}
                         </a>
-                        <p class="card-text">
-                          {% if product_data and 'product1' in product_data %}
-                              {{ product_data['product1']['description'] }}
-                          {% else %}
-                              Product Description
-                          {% endif %}
-                        </p>
-                        <p class="text-muted">Reviews (24)</p>
+                        <div class="card-body">
+                            <ul class="list-unstyled d-flex justify-content-between">
+                                <!-- Star ratings logic -->
+                                <li>
+                                    <i class="text-warning fa fa-star"></i>
+                                    <i class="text-warning fa fa-star"></i>
+                                    <i class="text-warning fa fa-star"></i>
+                                    <i class="text-muted fa fa-star"></i>
+                                    <i class="text-muted fa fa-star"></i>
+                                </li>
+                                <!-- Product price -->
+                                <li class="text-muted text-right">
+                                    {% if product_data and product_key in product_data %}
+                                        ${{ product_data[product_key]['price'] }}
+                                    {% else %}
+                                        Price
+                                    {% endif %}
+                                </li>
+                            </ul>
+                            <a href="{{ url_for('process_view', product_key=product_key) }}" class="h2 text-decoration-none text-dark">
+                                {% if product_data and product_key in product_data %}
+                                    {{ product_data[product_key]['title'] }}
+                                {% else %}
+                                    Product Title
+                                {% endif %}
+                            </a>
+                            <p class="card-text">
+                                {% if product_data and product_key in product_data %}
+                                    {{ product_data[product_key]['description'] }}
+                                {% else %}
+                                    Product Description
+                                {% endif %}
+                            </p>
+                            <!-- You might need to adjust the reviews logic if it's different for each product -->
+                            
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-12 col-md-4 mb-4">
-                <div class="card h-100">
-                    
-                    <a href="{{ url_for('process_view', product_key='product2') }}">
-                        <img src="static/images/feature_prod_02.jpg" class="card-img-top" alt="...">
-                    </a>
-                    <div class="card-body">
-                        <ul class="list-unstyled d-flex justify-content-between">
-                            <li>
-                                <i class="text-warning fa fa-star"></i>
-                                <i class="text-warning fa fa-star"></i>
-                                <i class="text-warning fa fa-star"></i>
-                                <i class="text-muted fa fa-star"></i>
-                                <i class="text-muted fa fa-star"></i>
-                            </li>
-                            <li class="text-muted text-right">$480.00</li>
-                        </ul>
-                        <a href="{{ url_for('process_view', product_key='product2') }}" class="h2 text-decoration-none text-dark">
-                          {% if product_data and 'product2' in product_data %}
-                              {{ product_data['product2']['title'] }}
-                          {% else %}
-                              Product Title
-                          {% endif %}
-                        </a>
-                        <p class="card-text">
-                          {% if product_data and 'product2' in product_data %}
-                              {{ product_data['product2']['description'] }}
-                          {% else %}
-                              Product Description
-                          {% endif %}
-                        </p>
-                        <p class="text-muted">Reviews (48)</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 col-md-4 mb-4">
-                <div class="card h-100">
-                    
-                    <a href="{{ url_for('process_view', product_key='product3') }}">
-                        <img src="static/images/feature_prod_03.jpg" class="card-img-top" alt="...">
-                    </a>
-                    <div class="card-body">
-                        <ul class="list-unstyled d-flex justify-content-between">
-                            <li>
-                                <i class="text-warning fa fa-star"></i>
-                                <i class="text-warning fa fa-star"></i>
-                                <i class="text-warning fa fa-star"></i>
-                                <i class="text-warning fa fa-star"></i>
-                                <i class="text-warning fa fa-star"></i>
-                            </li>
-                            <li class="text-muted text-right">$360.00</li>
-                        </ul>
-                        <a href="{{ url_for('process_view', product_key='product3') }}" class="h2 text-decoration-none text-dark">
-                          {% if product_data and 'product3' in product_data %}
-                              {{ product_data['product3']['title'] }}
-                          {% else %}
-                              Product Title
-                          {% endif %}
-                        </a>
-                        <p class="card-text">
-                          {% if product_data and 'product3' in product_data %}
-                              {{ product_data['product3']['description'] }}
-                          {% else %}
-                              Product Description
-                          {% endif %}
-                        </p>
-                        <p class="text-muted">Reviews (74)</p>
-                    </div>
-                </div>
-            </div>
+            {% endfor %}
         </div>
     </div>
 </section>

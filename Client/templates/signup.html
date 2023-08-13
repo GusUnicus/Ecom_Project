@@ -1,7 +1,8 @@
 {% extends 'base.html' %}
 {% block script %}
-<script defer>
-  const emailInput = document.getElementById('emailID');
+<script >
+  document.addEventListener("DOMContentLoaded", (event) => {
+    const emailInput = document.getElementById('emailID');
   const emailError = document.getElementById('emailError');
   const pwdInput = document.getElementById('passwordID');
   const progressBar = document.getElementById('password-strength');
@@ -38,6 +39,8 @@
     $('#password-strength').css('width', strength + '%').attr('aria-valuenow', strength);
   }
 
+  });
+  
 
 </script>
 {% endblock script %}
@@ -100,29 +103,13 @@
           </div>
           
 
-          <!-- Checkbox -->
-          <div class="form-check d-flex justify-content-center mb-4">
-            
-            <input class="form-check-input me-2" type="checkbox" value="" id="subscription" checked />
-            <label class="form-check-label" for="subscription">
-              Subscribe to our newsletter
-            </label>
-            
-          </div>
-
           <!-- Submit button -->
           <button type="submit" class="btn btn-primary btn-block mb-4">
             Sign up
           </button>
 
           <!-- Register buttons -->
-          <div class="text-center">
-            <p>or sign up with:</p>
-            <button type="button" class="btn btn-link btn-floating mx-1">
-              <i class="fab fa-google"></i>
-            </button>
-            </button>
-          </div>
+     
         </form>
         <div>
           <p class="mb-0">Already registered? <a href="{{url_for("login")}}" class="text-white-50 fw-bold">Login</a>

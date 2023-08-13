@@ -17,7 +17,7 @@
             <div class="form-group mb-3">
                 <label class="form-label" for="verification_code">Enter the verification code from Google Authenticator:</label>
                 <input class="form-control" type="text" id="verification_code" name="verification_code">
-                <input class="form-control d-none" type="hidden" id="username" name="username" value="{{username}}">
+                <input class="form-control d-none" type="hidden" id="username" name="username" value="{{ session['username'] }}">
             </div>
             <button class="btn btn-primary" type="submit">Submit</button>
         </form>

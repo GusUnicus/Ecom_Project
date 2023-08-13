@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block script %}
 <script src="static/js/cart.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
 {% endblock script %}
 {% block content %}
 
@@ -11,7 +12,7 @@
             <div class="row">
                 <div class="col-lg-5 mt-5">
                     <div class="card mb-3">
-                        <img class="card-img img-fluid" src="static/images/product_single_10.jpg" alt="Card image cap" id="product-detail">
+                        <img class="card-img img-fluid" src="{{product['image_url']}}" alt="Card image cap" id="product-detail">
                     </div>
                     <div class="row">
                         <!--Start Controls-->
@@ -32,66 +33,24 @@
                                     <div class="row">
                                         <div class="col-4">
                                             <a href="#">
-                                                <img class="card-img img-fluid" src="static/images/product_single_01.jpg" alt="Product Image 1">
+                                                <img class="card-img img-fluid" src="{{product['image_url']}}" alt="Product Image 1">
                                             </a>
                                         </div>
                                         <div class="col-4">
                                             <a href="#">
-                                                <img class="card-img img-fluid" src="static/images/product_single_02.jpg" alt="Product Image 2">
+                                                <img class="card-img img-fluid" src="{{product['image_url2']}}" alt="Product Image 2">
                                             </a>
                                         </div>
                                         <div class="col-4">
                                             <a href="#">
-                                                <img class="card-img img-fluid" src="static/images/product_single_03.jpg" alt="Product Image 3">
+                                                <img class="card-img img-fluid" src="{{product['image_url3']}}" alt="Product Image 3">
                                             </a>
                                         </div>
                                     </div>
                                 </div>
                                 <!--/.First slide-->
 
-                                <!--Second slide-->
-                                <div class="carousel-item">
-                                    <div class="row">
-                                        <div class="col-4">
-                                            <a href="#">
-                                                <img class="card-img img-fluid" src="static/images/product_single_04.jpg" alt="Product Image 4">
-                                            </a>
-                                        </div>
-                                        <div class="col-4">
-                                            <a href="#">
-                                                <img class="card-img img-fluid" src="static/images/product_single_05.jpg" alt="Product Image 5">
-                                            </a>
-                                        </div>
-                                        <div class="col-4">
-                                            <a href="#">
-                                                <img class="card-img img-fluid" src="static/images/product_single_06.jpg" alt="Product Image 6">
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--/.Second slide-->
-
-                                <!--Third slide-->
-                                <div class="carousel-item">
-                                    <div class="row">
-                                        <div class="col-4">
-                                            <a href="#">
-                                                <img class="card-img img-fluid" src="static/images/product_single_07.jpg" alt="Product Image 7">
-                                            </a>
-                                        </div>
-                                        <div class="col-4">
-                                            <a href="#">
-                                                <img class="card-img img-fluid" src="static/images/product_single_08.jpg" alt="Product Image 8">
-                                            </a>
-                                        </div>
-                                        <div class="col-4">
-                                            <a href="#">
-                                                <img class="card-img img-fluid" src="static/images/product_single_09.jpg" alt="Product Image 9">
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--/.Third slide-->
+                                
                             </div>
                             <!--End Slides-->
                         </div>
@@ -112,7 +71,7 @@
                         <div class="card-body">
                             <!-- <h1 class="h2">Active Wear</h1> -->
                             <h1 class="h2">{{product['title']}}</h1>
-                            <p class="h3 py-2">{{product['price']}}</p>
+                            <p class="h3 py-2">$ {{product['price']}}</p>
                             <p class="py-2">
                                 <i class="fa fa-star text-warning"></i>
                                 <i class="fa fa-star text-warning"></i>
@@ -173,9 +132,7 @@
                                     </div>
                                 </div>
                                 <div class="row pb-3">
-                                    <div class="col d-grid">
-                                        <button type="submit" class="btn btn-success btn-lg" name="submitBuy" value="buy">Buy</button>
-                                    </div>
+                                   
                                     <div class="col d-grid">
                                         <button type="submit" class="add-to-cart btn btn-success btn-lg" data-name='{{product.title}}' data-price='{{product.price}}' name="submitAddToCart" value="addtocard">Add To Cart</button>
                                     </div>
@@ -187,6 +144,23 @@
                 </div>
             </div>
         </div>
+        <div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="cartModalLabel">Cart Update</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  The product has been added to the cart!
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+        </div>
+          
     </section>
     <!-- Close Content -->
 

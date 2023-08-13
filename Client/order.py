@@ -11,15 +11,14 @@ class Order():
             host='localhost',#os.environ['HOST']
             user='teset',#os.environ['USER']
             password='bhdN__dhBqUI8L)5',#os.environ['DB_PASSWORD']
-            database=database#os.environ['DATABASE']
+            database=database
         )
     
-    def write_order(self, username, cart_products):
-        cursor = self.connection.cursor()
+    def write_order(self, userID, cart_products):
         try:
-            query = f"INSERT INTO {self.table} (username, products_list) VALUES ('{username}', '{str(cart_products)}')"
+            query = "INSERT INTO {table} (usersUid, order_items) VALUES (%s, %s)".format(table=self.table)
             with self.connect_database(self.database) as connection, connection.cursor() as cursor:
-                cursor.execute(query)
+                cursor.execute(query,(userID,str(cart_products)))
                 connection.commit()
             return
         except Exception as e:
