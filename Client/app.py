@@ -65,17 +65,8 @@ def check_password_strength(password):
 
 @app.after_request
 def add_header(response):
-    csp = {
-        'default-src': "'self' data:",
-        'img-src': "'self' data: *",
-        'style-src': "'self' https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css",
-        #'font-src': "'self' https://fonts.googleapis.com/css2", 
-        'script-src': "'self' https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js", 
-        # Add other CSP directives as needed
-    }
-    csp_header = '; '.join([f"{key} {value}" for key, value in csp.items()])
     csp ="img-src 'self' data: 'unsafe-inline' *"
-    response.headers['Content-Security-Policy'] = csp_header
+    response.headers['Content-Security-Policy'] = csp
     response.headers["Access-Control-Allow-Methods"] = "GET, POST"
     response.headers["Access-Control-Allow-Headers"] = "Content-Type, Authorization"
     response.headers['Access-Control-Allow-Origin'] = 'https://checkout.stripe.com/*'
